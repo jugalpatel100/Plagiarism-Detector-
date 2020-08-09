@@ -1,0 +1,8 @@
+Divide passage into sentences
+search sentences within 2048 characters using googlesearch module and take top 10 links
+give these links to bs4 and get p/span tag html
+give this html to html2text to get strings
+use pattern matching algorithm to compare sentences with webpage strings
+check percentage of similarity
+average
+print links most similar to give option to print original source
