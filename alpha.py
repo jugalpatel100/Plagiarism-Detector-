@@ -5,6 +5,16 @@ import nltk
 links=['https://en.wikipedia.org/wiki/']
 tokenizer = nltk.RegexpTokenizer(r"\w+")
 
+def tokenizeText(paralist):
+    tokenized_text = list()
+    for x in range(len(paralist)):
+        if paralist[x]!=[]:
+            para=paralist[x]
+            para=tokenizer.tokenize(para)
+            if para != []:
+                tokenized_text.append(para)
+    return tokenized_text
+
 def menu():
     print('WELCOME TO PLAGIARISM DETECTOR\nChoose from the following options:')
     print('1.Topic (More lenient, only checks particular websites for C&P)')
@@ -16,18 +26,8 @@ def menu():
     elif type == '2':
         pass
 
-def bagofwords(file,link_text):
-    file = file.split('\n')
-    tokenized_paralist=[]
-    for x in range(len(file)):
-        if file[x]!=[]:
-            para=file[x]
-            para=tokenizer.tokenize(para)
-            if para != []:
-                tokenized_paralist.append(para)
-    #print(tokenized_paralist)
-
-
+def bagofwords(file,source):
+    print(file[:2],'\n\n',source[:3])
 
 def topic_cp(flag):
     topic=input('Enter the topic: ')
@@ -45,18 +45,19 @@ def topic_cp(flag):
             if link_text[x] == '\n':
                 link_text.pop(x)
 
-        tokenized_source = list()
-        #Tokenized stuff
-        for x in range(len(link_text)):
-            if link_text[x]!=[]:
-                para=link_text[x]
-                para=tokenizer.tokenize(para)
-                if para != []:
-                    tokenized_source.append(para)
-
+        # tokenized_source = list()
+        # for x in range(len(link_text)):
+        #     if link_text[x]!=[]:
+        #         para=link_text[x]
+        #         para=tokenizer.tokenize(para)
+        #         if para != []:
+        #             tokenized_source.append(para)
+        tokenized_source = tokenizeText(link_text)
         print(tokenized_source[:2])
         f = open('dragons.txt',encoding="utf8")
         file = f.read()
-        bagofwords(file,tokenized_source)
+        file = file.split('\n')
+        tokenized_file = tokenizeText(file)
+        bagofwords(tokenized_file,tokenized_source)
 
 menu()
