@@ -46,7 +46,7 @@ def topic_cp(flag):
                 link_text.pop(x)
 
         tokenized_source = list()
-
+        #Tokenized stuff
         for x in range(len(link_text)):
             if link_text[x]!=[]:
                 para=link_text[x]
