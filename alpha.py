@@ -26,9 +26,6 @@ def menu():
     elif type == '2':
         pass
 
-def bagofwords(file,source):
-    print(file[:2],'\n\n',source[:3])
-
 def topic_cp(flag):
     topic=input('Enter the topic: ')
     for link in links:
@@ -46,11 +43,27 @@ def topic_cp(flag):
                 link_text.pop(x)
 
         tokenized_source = tokenizeText(link_text)
-        print(tokenized_source[:2])
-        f = open('dragons.txt',encoding="utf8")
+
+        filename = input('Enter absolute path of local file to be checked')
+
+        f = open(filename,encoding="utf8")
         file = f.read()
         file = file.split('\n')
         tokenized_file = tokenizeText(file)
+
         bagofwords(tokenized_file,tokenized_source)
 
-menu()
+def bagofwords(file,source):
+    pass
+
+if __name__ == '__main__':
+    menu()
+
+
+'''
+for key in dict.keys():
+
+    if key in 2nd dict keys():
+        negative score=|dict[key]-dict2[key]|
+
+'''
