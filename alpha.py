@@ -45,13 +45,6 @@ def topic_cp(flag):
             if link_text[x] == '\n':
                 link_text.pop(x)
 
-        # tokenized_source = list()
-        # for x in range(len(link_text)):
-        #     if link_text[x]!=[]:
-        #         para=link_text[x]
-        #         para=tokenizer.tokenize(para)
-        #         if para != []:
-        #             tokenized_source.append(para)
         tokenized_source = tokenizeText(link_text)
         print(tokenized_source[:2])
         f = open('dragons.txt',encoding="utf8")
