@@ -16,7 +16,7 @@ def menu():
     elif type == '2':
         pass
 
-def bagofwords(file,linktext):
+def bagofwords(file,link_text):
     file = file.split('\n')
     tokenized_paralist=[]
     for x in range(len(file)):
@@ -25,7 +25,7 @@ def bagofwords(file,linktext):
             para=tokenizer.tokenize(para)
             if para != []:
                 tokenized_paralist.append(para)
-    print(tokenized_paralist)
+    #print(tokenized_paralist)
 
 
 
@@ -35,12 +35,28 @@ def topic_cp(flag):
         link+=topic
         r = requests.get(link)
         soup = BeautifulSoup(r.content,features="html.parser")
-        content = soup.get_text().split('.')
-        for x in range(len(content)-1,-1,-1):
-            if content[x]=='' or content[x].count(' ') < 4:
-                content.pop(x)
+
+        link_text = list()
+
+        for para in soup.find_all('p'):
+             link_text.append(para.get_text())
+
+        for x in range(len(link_text)-1,-1,-1):
+            if link_text[x] == '\n':
+                link_text.pop(x)
+
+        tokenized_source = list()
+
+        for x in range(len(link_text)):
+            if link_text[x]!=[]:
+                para=link_text[x]
+                para=tokenizer.tokenize(para)
+                if para != []:
+                    tokenized_source.append(para)
+
+        print(tokenized_source[:2])
         f = open('dragons.txt',encoding="utf8")
         file = f.read()
-        bagofwords(file,content)
+        bagofwords(file,tokenized_source)
 
 menu()
