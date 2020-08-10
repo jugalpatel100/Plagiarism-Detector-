@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import nltk
+import os
 
 links=['https://en.wikipedia.org/wiki/']
 tokenizer = nltk.RegexpTokenizer(r"\w+")
@@ -46,12 +47,15 @@ def topic_cp(flag):
 
         filename = input('Enter absolute path of local file to be checked')
 
-        f = open(filename,encoding="utf8")
-        file = f.read()
-        file = file.split('\n')
-        tokenized_file = tokenizeText(file)
+        if os.path.isfile(filename):
+            f = open(filename,encoding="utf8")
+            file = f.read()
+            file = file.split('\n')
+            tokenized_file = tokenizeText(file)
 
-        bagofwords(tokenized_file,tokenized_source)
+            bagofwords(tokenized_file,tokenized_source)
+        else:
+            print('File not found.')
 
 def bagofwords(file,source):
     pass
