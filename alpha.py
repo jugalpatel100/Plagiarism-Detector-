@@ -58,12 +58,45 @@ def topic_cp(flag):
             file = file.split('\n')
             tokenized_file = tokenizeText(file)
 
-            bagofwords(tokenized_file,tokenized_source)
+            print(bag_of_words(tokenized_file,tokenized_source))
         else:
             print('File not found.')
 
-def bagofwords(file,source):
-    pass
+def bag_of_words(file,source):
+
+    #Creating lists to store count of words for each paragraph
+    dict_file = list()
+    dict_source = list()
+
+    for para in file:
+        dict_file.append({word: para.count(word) for word in set(para)})
+    
+    for para in source:
+        dict_source.append({word: para.count(word) for word in set(para)})
+
+    score_list = list()
+
+    for p1_dict in dict_file:
+        max_score = 0
+        for p2_dict in dict_source:
+            total_words = sum(p2_dict.values())
+            words_matched = 0
+
+            for word in p1_dict.keys():
+                if word in p2_dict.keys():
+                    words_matched = words_matched+p1_dict[word] if p1_dict[word] <= p2_dict[word] else words_matched+p2_dict[word] 
+            
+            score = words_matched/total_words
+
+            if score > max_score:
+                max_score = words_matched/total_words
+        score_list.append(max_score)
+
+    plagiarism_score = (sum(score_list)/len(score_list)) * 100
+    #Deleted some text from the last paragraph of dragons.txt to check for change in plagiarsim score
+    
+    return round(plagiarism_score,3)
+
 
 if __name__ == '__main__':
     menu()
