@@ -7,6 +7,8 @@ links=['https://en.wikipedia.org/wiki/']
 tokenizer = nltk.RegexpTokenizer(r"\w+")
 
 def tokenizeText(paralist):
+    '''Converts list of paragraphs/texts into list of tokenized paragraphs'''
+    
     tokenized_text = list()
     for x in range(len(paralist)):
         if paralist[x]!=[]:
@@ -28,6 +30,9 @@ def menu():
         pass
 
 def topic_cp(flag):
+    ''' Checks for copy&paste type of plagiarism for the given document
+        by comparing with texts/data from the given sources/links''' 
+
     topic=input('Enter the topic: ')
     for link in links:
         link+=topic
