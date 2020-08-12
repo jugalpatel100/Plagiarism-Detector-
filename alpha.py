@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import nltk
 import os
+from file_selection import fileSelector
 
 links=['https://en.wikipedia.org/wiki/']
 tokenizer = nltk.RegexpTokenizer(r"\w+")
@@ -50,7 +51,17 @@ def topic_cp(flag):
 
         tokenized_source = tokenizeText(link_text)
 
-        filename = input('Enter absolute path of local file to be checked')
+        print('\n1. Enter file path')
+        print('2. Browse file')
+
+        selection = int(input('\nChoose option to upload file: '))
+
+        filename = ""
+
+        if selection == 1:
+            filename = input('Enter absolute path of local file to be checked')
+        elif selection == 2:
+            filename = fileSelector()
 
         if os.path.isfile(filename):
             f = open(filename,encoding="utf8")
@@ -100,12 +111,3 @@ def bag_of_words(file,source):
 
 if __name__ == '__main__':
     menu()
-
-
-'''
-for key in dict.keys():
-
-    if key in 2nd dict keys():
-        negative score=|dict[key]-dict2[key]|
-
-'''
